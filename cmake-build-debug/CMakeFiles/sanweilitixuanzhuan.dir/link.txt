@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/sanweilitixuanzhuan.dir/main.cpp.o  -o sanweilitixuanzhuan 
