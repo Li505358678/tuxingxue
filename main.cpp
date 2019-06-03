@@ -37,11 +37,11 @@ void DrawCube(void)
                             { 1.0, 0.0, 1.0 }, { 1.0, 1.0, 0.0 }, { 0.0, 1.0, 1.0 },
                             { 1.0, 0.5, 0.5 }, { 0.0, 0.5, 0.5 } };
 
-    glBegin(GL_QUADS); // 绘制四边形
-    for (i = 0; i < 6; ++i)         // 有六个面，循环六次
+    glBegin(GL_QUADS);
+    for (i = 0; i < 6; ++i)
     {
         glColor3f(colors[i][0], colors[i][1], colors[i][2]);
-        for (j = 0; j < 4; ++j)     // 每个面有四个顶点，循环四次
+        for (j = 0; j < 4; ++j)
         {
             glVertex3fv(vertex_list[index_list[i][j]]);
         }
@@ -56,6 +56,7 @@ static int deltaX=0;
 static int deltaY=0;
 static int xb=0;
 static int yb=0;
+
 
 void renderScene(void)
 {
@@ -95,9 +96,6 @@ void renderScene(void)
 
     }
 
-    glRotatef(rotate1, 0, 1, 0);
-    glRotatef(rotate2, 1, 0, 0);
-
     glColor3f(0, 0, 1);
     DrawCube();
     glPopMatrix();
@@ -135,8 +133,8 @@ void passivemotion( int x, int y ) {
         {
             float a = vertex_list[i][0] * 1.0;
             float c = vertex_list[i][2] * 1.0;
-            vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 180.0) - a * sin((float)deltaX / 25.0 / 180.0));
-            vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 180.0) + a * cos((float)deltaX / 25.0 / 180.0));
+            vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 360.0) - a * sin((float)deltaX / 25.0 / 360.0));
+            vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 360.0) + a * cos((float)deltaX / 25.0 / 360.0));
         }
         xb=deltaX;
     }
@@ -146,8 +144,8 @@ void passivemotion( int x, int y ) {
         {
             float a = vertex_list[i][0] * 1.0;
             float c = vertex_list[i][2] * 1.0;
-            vertex_list[i][2] = (float)(c * cos(-(float)deltaX / 25.0 / 180.0) - a * sin(-(float)deltaX / 25.0 / 180.0));
-            vertex_list[i][0] = (float)(c * sin(-(float)deltaX / 25.0 / 180.0) + a * cos(-(float)deltaX / 25.0 / 180.0));
+            vertex_list[i][2] = (float)(c * cos(-(float)deltaX / 25.0 / 360.0) - a * sin(-(float)deltaX / 25.0 / 360.0));
+            vertex_list[i][0] = (float)(c * sin(-(float)deltaX / 25.0 / 360.0) + a * cos(-(float)deltaX / 25.0 / 360.0));
         }
         xb=deltaX;
     }
@@ -157,8 +155,8 @@ void passivemotion( int x, int y ) {
         {
             float a = vertex_list[i][0] * 1.0;
             float c = vertex_list[i][2] * 1.0;
-            vertex_list[i][2] = (float)(c * cos(-(float)deltaX / 25.0 / 180.0) - a * sin(-(float)deltaX / 25.0 / 180.0));
-            vertex_list[i][0] = (float)(c * sin(-(float)deltaX / 25.0 / 180.0) + a * cos(-(float)deltaX / 25.0 / 180.0));
+            vertex_list[i][2] = (float)(c * cos(-(float)deltaX / 25.0 / 360.0) - a * sin(-(float)deltaX / 25.0 / 360.0));
+            vertex_list[i][0] = (float)(c * sin(-(float)deltaX / 25.0 / 360.0) + a * cos(-(float)deltaX / 25.0 / 360.0));
         }
         xb=deltaX;
     }
@@ -168,8 +166,8 @@ void passivemotion( int x, int y ) {
         {
             float a = vertex_list[i][0] * 1.0;
             float c = vertex_list[i][2] * 1.0;
-            vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 180.0) - a * sin((float)deltaX / 25.0 / 180.0));
-            vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 180.0) + a * cos((float)deltaX / 25.0 / 180.0));
+            vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 360.0) - a * sin((float)deltaX / 25.0 / 360.0));
+            vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 360.0) + a * cos((float)deltaX / 25.0 / 360.0));
         }
         xb=deltaX;
 
@@ -181,8 +179,8 @@ void passivemotion( int x, int y ) {
         {
             float b = vertex_list[i][1]* 1.0;
             float c = vertex_list[i][2]* 1.0;
-            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 180.0)) - c * sin(((float)deltaY / 25.0 / 180.0)));
-            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 180.0)) + c * cos(((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 360.0)) - c * sin(((float)deltaY / 25.0 / 360.0)));
+            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 360.0)) + c * cos(((float)deltaY / 25.0 / 360.0)));
         }
         yb=deltaY;
     }
@@ -192,8 +190,8 @@ void passivemotion( int x, int y ) {
         {
             float b = vertex_list[i][1]* 1.0;
             float c = vertex_list[i][2]* 1.0;
-            vertex_list[i][1] = (float)(b * cos(-((float)deltaY / 25.0 / 180.0)) - c * sin(-((float)deltaY / 25.0 / 180.0)));
-            vertex_list[i][2] = (float)(b * sin(-((float)deltaY / 25.0 / 180.0)) + c * cos(-((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][1] = (float)(b * cos(-((float)deltaY / 25.0 / 360.0)) - c * sin(-((float)deltaY / 25.0 / 360.0)));
+            vertex_list[i][2] = (float)(b * sin(-((float)deltaY / 25.0 / 360.0)) + c * cos(-((float)deltaY / 25.0 / 360.0)));
         }
         yb=deltaY;
     }
@@ -203,8 +201,8 @@ void passivemotion( int x, int y ) {
         {
             float b = vertex_list[i][1]* 1.0;
             float c = vertex_list[i][2]* 1.0;
-            vertex_list[i][1] = (float)(b * cos(-((float)deltaY / 25.0 / 180.0)) - c * sin(-((float)deltaY / 25.0 / 180.0)));
-            vertex_list[i][2] = (float)(b * sin(-((float)deltaY / 25.0 / 180.0)) + c * cos(-((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][1] = (float)(b * cos(-((float)deltaY / 25.0 / 360.0)) - c * sin(-((float)deltaY / 25.0 / 360.0)));
+            vertex_list[i][2] = (float)(b * sin(-((float)deltaY / 25.0 / 360.0)) + c * cos(-((float)deltaY / 25.0 / 360.0)));
         }
         yb=deltaY;
     }
@@ -214,8 +212,8 @@ void passivemotion( int x, int y ) {
         {
             float b = vertex_list[i][1]* 1.0;
             float c = vertex_list[i][2]* 1.0;
-            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 180.0)) - c * sin(((float)deltaY / 25.0 / 180.0)));
-            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 180.0)) + c * cos(((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 360.0)) - c * sin(((float)deltaY / 25.0 / 360.0)));
+            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 360.0)) + c * cos(((float)deltaY / 25.0 / 360.0)));
         }
         yb=deltaY;
     }
