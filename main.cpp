@@ -124,6 +124,7 @@ void passivemotion( int x, int y ) {
     int centerX = 400;
     int centerY = 400;
 
+    
     deltaX = (x - centerX);
     deltaY = (y - centerY);
 
