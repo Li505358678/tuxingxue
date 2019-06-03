@@ -1,5 +1,8 @@
 #include<GL/glut.h>
 #include <math.h>
+#include <iostream>
+
+using namespace std;
 
 #define PI 3.1415926
 int WinWidth, WinHeight;
@@ -51,6 +54,8 @@ static float rotate2 = 0;
 static int times = 0;
 static int deltaX=0;
 static int deltaY=0;
+static int xb=0;
+static int yb=0;
 
 void renderScene(void)
 {
@@ -66,8 +71,27 @@ void renderScene(void)
     }
     if (times % 100 == 0)
     {
-        rotate1 += ((float)deltaX / 25.0 / 30.0);
-        rotate2 += ((float)deltaY / 25.0 / 30.0);
+        if(deltaX !=0)
+        {
+            for(int i = 0;i < 8; i++)
+            {
+                float a = vertex_list[i][0] * 1.0;
+                float c = vertex_list[i][2] * 1.0;
+                vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 360.0) - a * sin((float)deltaX / 25.0 / 360.0));
+                vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 360.0) + a * cos((float)deltaX / 25.0 / 360.0));
+            }
+        }
+        if( deltaY !=0)
+        {
+            for(int i = 0; i < 8; i++)
+            {
+                float b = vertex_list[i][1]* 1.0;
+                float c = vertex_list[i][2]* 1.0;
+                vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 360.0)) - c * sin(((float)deltaY / 25.0 / 360.0)));
+                vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 360.0)) + c * cos(((float)deltaY / 25.0 / 360.0)));
+            }
+            yb=deltaY;
+        }
 
     }
 
@@ -105,26 +129,95 @@ void passivemotion( int x, int y ) {
     deltaX = (x - centerX);
     deltaY = (y - centerY);
 
-    if(deltaX != 0.0)
+    if(deltaX >=xb && deltaX>=0)
     {
         for(int i = 0;i < 8; i++)
-        {
-            float b = vertex_list[i][1]* 1.0;
-            float c = vertex_list[i][2]* 1.0;
-            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 180.0)) - c * sin(((float)deltaY / 25.0 / 180.0)));
-            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 180.0)) + c * cos(((float)deltaY / 25.0 / 180.0)));
-
-        }
-    }
-    if( deltaY != 0)
-    {
-        for(int i = 0; i < 8; i++)
         {
             float a = vertex_list[i][0] * 1.0;
             float c = vertex_list[i][2] * 1.0;
             vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 180.0) - a * sin((float)deltaX / 25.0 / 180.0));
             vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 180.0) + a * cos((float)deltaX / 25.0 / 180.0));
         }
+        xb=deltaX;
+    }
+    if(deltaX >=xb && deltaX<0)
+    {
+        for(int i = 0;i < 8; i++)
+        {
+            float a = vertex_list[i][0] * 1.0;
+            float c = vertex_list[i][2] * 1.0;
+            vertex_list[i][2] = (float)(c * cos(-(float)deltaX / 25.0 / 180.0) - a * sin(-(float)deltaX / 25.0 / 180.0));
+            vertex_list[i][0] = (float)(c * sin(-(float)deltaX / 25.0 / 180.0) + a * cos(-(float)deltaX / 25.0 / 180.0));
+        }
+        xb=deltaX;
+    }
+    if(deltaX <xb && deltaX>=0)
+    {
+        for(int i = 0;i < 8; i++)
+        {
+            float a = vertex_list[i][0] * 1.0;
+            float c = vertex_list[i][2] * 1.0;
+            vertex_list[i][2] = (float)(c * cos(-(float)deltaX / 25.0 / 180.0) - a * sin(-(float)deltaX / 25.0 / 180.0));
+            vertex_list[i][0] = (float)(c * sin(-(float)deltaX / 25.0 / 180.0) + a * cos(-(float)deltaX / 25.0 / 180.0));
+        }
+        xb=deltaX;
+    }
+    if(deltaX <xb && deltaX<0)
+    {
+        for(int i = 0;i < 8; i++)
+        {
+            float a = vertex_list[i][0] * 1.0;
+            float c = vertex_list[i][2] * 1.0;
+            vertex_list[i][2] = (float)(c * cos((float)deltaX / 25.0 / 180.0) - a * sin((float)deltaX / 25.0 / 180.0));
+            vertex_list[i][0] = (float)(c * sin((float)deltaX / 25.0 / 180.0) + a * cos((float)deltaX / 25.0 / 180.0));
+        }
+        xb=deltaX;
+
+    }
+
+   if( deltaY >=yb && deltaY>=0)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            float b = vertex_list[i][1]* 1.0;
+            float c = vertex_list[i][2]* 1.0;
+            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 180.0)) - c * sin(((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 180.0)) + c * cos(((float)deltaY / 25.0 / 180.0)));
+        }
+        yb=deltaY;
+    }
+    if( deltaY <yb && deltaY>=0)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            float b = vertex_list[i][1]* 1.0;
+            float c = vertex_list[i][2]* 1.0;
+            vertex_list[i][1] = (float)(b * cos(-((float)deltaY / 25.0 / 180.0)) - c * sin(-((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][2] = (float)(b * sin(-((float)deltaY / 25.0 / 180.0)) + c * cos(-((float)deltaY / 25.0 / 180.0)));
+        }
+        yb=deltaY;
+    }
+    if( deltaY >=yb && deltaY<0)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            float b = vertex_list[i][1]* 1.0;
+            float c = vertex_list[i][2]* 1.0;
+            vertex_list[i][1] = (float)(b * cos(-((float)deltaY / 25.0 / 180.0)) - c * sin(-((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][2] = (float)(b * sin(-((float)deltaY / 25.0 / 180.0)) + c * cos(-((float)deltaY / 25.0 / 180.0)));
+        }
+        yb=deltaY;
+    }
+    if( deltaY <yb && deltaY<0)
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            float b = vertex_list[i][1]* 1.0;
+            float c = vertex_list[i][2]* 1.0;
+            vertex_list[i][1] = (float)(b * cos(((float)deltaY / 25.0 / 180.0)) - c * sin(((float)deltaY / 25.0 / 180.0)));
+            vertex_list[i][2] = (float)(b * sin(((float)deltaY / 25.0 / 180.0)) + c * cos(((float)deltaY / 25.0 / 180.0)));
+        }
+        yb=deltaY;
     }
 }
 
